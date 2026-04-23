@@ -146,7 +146,7 @@
 
     /* ===== 좌측 패널 ===== */
     .panel-left {
-      width: 38%;
+      width: 45%;
       min-width: 320px;
       border-right: 1px solid var(--color-border);
       display: flex;
@@ -418,6 +418,88 @@
       overflow-y: auto;
     }
 
+    /* ===== 자격 정보 테이블 ===== */
+    .qual-table-wrap {
+      flex: 1;
+      overflow-y: auto;
+      position: relative;
+    }
+    .qual-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .qual-table thead th {
+      padding: 11px 14px;
+      text-align: left;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-text);
+      background: #EEF2F7;
+      border-bottom: 2px solid var(--color-border);
+      white-space: nowrap;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      letter-spacing: 0.02em;
+    }
+    .qual-table tbody tr {
+      border-bottom: 1px solid var(--color-border);
+      transition: background var(--transition);
+    }
+    .qual-table tbody tr:nth-child(even) { background: #F8FAFC; }
+    .qual-table tbody tr:last-child { border-bottom: none; }
+    .qual-table tbody tr:hover { background: var(--color-primary-tint); }
+    .qual-table tbody td { padding: 12px 14px; vertical-align: middle; }
+    .qual-table tbody tr:hover .btn-qual-action { opacity: 1; }
+    .qual-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 99px;
+      white-space: nowrap;
+    }
+    .qual-badge.internal { background: #dbeafe; color: #1d4ed8; }
+    .qual-badge.external { background: #dcfce7; color: #15803d; }
+    .qual-td-name { font-size: 13px; font-weight: 600; color: var(--color-text); }
+    .qual-td-grade { font-size: 13px; color: var(--color-text-muted); }
+    .qual-td-date { font-size: 12px; color: var(--color-text-muted); white-space: nowrap; }
+    .qual-td-actions { text-align: right; white-space: nowrap; }
+    .btn-qual-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: var(--radius-sm);
+      border: 1px solid transparent;
+      background: transparent;
+      font-size: 14px;
+      cursor: pointer;
+      opacity: 0;
+      transition: all var(--transition);
+      line-height: 1;
+    }
+    .btn-qual-edit {
+      color: var(--color-text-muted);
+    }
+    .btn-qual-edit:hover {
+      background: var(--color-primary-light);
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+      opacity: 1;
+    }
+    .btn-qual-del {
+      color: var(--color-text-muted);
+    }
+    .btn-qual-del:hover {
+      background: var(--color-danger-light);
+      border-color: var(--color-danger);
+      color: var(--color-danger);
+      opacity: 1;
+    }
+
     /* 전문분야 카드 — 항상 펼침 */
     .field-card {
       background: var(--color-card);
@@ -560,9 +642,9 @@
       background: var(--color-card);
       border-radius: var(--radius-xl);
       box-shadow: var(--shadow-xl);
-      width: 560px;
-      max-width: 96vw;
-      max-height: 88vh;
+      width: 720px;
+      max-width: 94vw;
+      max-height: 90vh;
       display: flex;
       flex-direction: column;
       overflow: hidden;
@@ -598,52 +680,58 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 16px;
     }
     .field-modal-field { display: flex; flex-direction: column; gap: 5px; }
-    .field-modal-label {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--color-primary);
-      border-left: 3px solid var(--color-primary);
-      background: var(--color-primary-light);
-      border-radius: 0 4px 4px 0;
-      padding: 3px 10px 3px 8px;
-      display: inline-block;
-      line-height: 1.5;
-    }
+    /* 통일된 레이블: 파란 배경 없이 심플하게 — 필수/선택 공통 */
+    .field-modal-label,
     .field-modal-name-label {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--color-text);
-      margin-bottom: 2px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-text-muted);
+      display: block;
+      line-height: 1.4;
     }
     .field-modal-input {
       width: 100%;
-      font-size: 15px;
-      font-weight: 600;
-      border: 1.5px solid var(--color-border);
-      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--color-text);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
       padding: 9px 12px;
       outline: none;
       font-family: inherit;
       box-sizing: border-box;
+      background: var(--color-card);
+      transition: border-color var(--transition), box-shadow var(--transition);
     }
-    .field-modal-input:focus { border-color: var(--color-primary); }
+    .field-modal-input:focus {
+      border-color: var(--color-border-focus);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+    select.field-modal-input { cursor: pointer; }
     .field-modal-ta {
       width: 100%;
-      font-size: 13px;
-      border: 1.5px solid var(--color-border);
-      border-radius: var(--radius-sm);
-      padding: 8px 10px;
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--color-text);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 9px 12px;
       resize: vertical;
       min-height: 64px;
       line-height: 1.6;
       outline: none;
       font-family: inherit;
       box-sizing: border-box;
+      background: var(--color-card);
+      transition: border-color var(--transition), box-shadow var(--transition);
     }
-    .field-modal-ta:focus { border-color: var(--color-primary); }
+    .field-modal-ta:focus {
+      border-color: var(--color-border-focus);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
     .field-modal-footer {
       padding: 14px 24px 18px;
       border-top: 1px solid var(--color-border);
@@ -821,7 +909,7 @@
 
     /* ===== 우측 패널 ===== */
     .panel-right {
-      flex: 1;
+      width: 55%;
       overflow-y: auto;
       padding: 24px 32px;
       display: flex;
@@ -1615,7 +1703,7 @@
       border-radius: var(--radius-xl);
       box-shadow: var(--shadow-xl);
       width: 100%;
-      max-width: 600px;
+      max-width: 760px;
       max-height: 90vh;
       display: flex;
       flex-direction: column;
@@ -1962,7 +2050,8 @@
     <div class="panel-tabs">
       <button class="panel-tab active" data-tab="instructor">강사정보</button>
       <button class="panel-tab" data-tab="projects">프로젝트</button>
-      <button class="panel-tab" data-tab="fields">전문분야</button>
+      <button class="panel-tab" data-tab="fields">전문분야 Profile</button>
+      <button class="panel-tab" data-tab="quals">자격 정보</button>
     </div>
 
     <!-- ── 강사정보 탭 ── -->
@@ -2027,6 +2116,37 @@
       </div>
     </div>
 
+    <!-- ── 자격 정보 탭 ── -->
+    <div class="panel-tab-content" id="tabQuals" role="tabpanel">
+      <div class="panel-left-header">
+        <p class="panel-title">자격 정보</p>
+        <button class="btn-add-project" id="btnQualAdd">＋ 항목 추가</button>
+      </div>
+      <div class="fields-count-bar">
+        <span>저장된 자격 정보 목록</span>
+        <span class="fields-count-badge" id="qualsCountBadge">0건</span>
+      </div>
+      <div class="qual-table-wrap" id="qualList">
+        <div class="loading-overlay" id="qualsLoadingOverlay">
+          <div class="spinner spinner-dark"></div>
+          <span class="loading-text">자격 정보를 불러오는 중...</span>
+        </div>
+        <table class="qual-table">
+          <thead>
+            <tr>
+              <th>자격 구분</th>
+              <th>명칭</th>
+              <th>등급</th>
+              <th>취득일</th>
+              <th>유효일</th>
+              <th style="width:72px;"></th>
+            </tr>
+          </thead>
+          <tbody id="qualTbody"></tbody>
+        </table>
+      </div>
+    </div>
+
   </section>
 
   <!-- 우측 패널: AI 분석 결과 -->
@@ -2076,12 +2196,12 @@
     <!-- 강점/약점 분석 섹션 -->
     <div class="sw-section" id="swSection">
       <div class="sw-section-header">
-        <h3 class="sw-section-title">🔍 강점 · 약점 분석 <span class="ai-model-badge" style="display:none;"></span></h3>
+        <h3 class="sw-section-title">🔍 강점 · 성장 방향 제안 <span class="ai-model-badge" style="display:none;"></span></h3>
         <span class="sw-section-desc">설문 결과와 프로젝트 수행 정보를 기반으로 분석합니다.</span>
       </div>
       <!-- 플레이스홀더 -->
       <div id="swPlaceholder" class="sw-placeholder">
-        <span id="swPlaceholderMsg">설문을 완료하면 강점·약점 분석이 자동으로 실행됩니다.</span>
+        <span id="swPlaceholderMsg">설문을 완료하면 강점·성장 방향 제안이 자동으로 실행됩니다.</span>
         <button id="btnSwRetry" style="display:none;margin-top:10px;" class="btn btn-secondary btn-sm">재시도</button>
       </div>
       <!-- 로딩 -->
@@ -2100,7 +2220,7 @@
         </div>
         <div class="sw-card weaknesses">
           <div class="sw-card-header">
-            <div class="sw-card-title">⚠️ 약점</div>
+            <div class="sw-card-title">⚠️ 성장 방향 제안</div>
             <button class="btn-sw-add" id="btnSwAddWeakness">＋ 항목 추가</button>
           </div>
           <div id="swWeaknessesContainer" class="sw-items-container"></div>
@@ -2118,7 +2238,7 @@
         <button class="btn-goal-add" id="btnGoalAdd" style="flex-shrink:0;">＋ 항목 추가</button>
       </div>
       <div id="goalPlaceholder" class="goal-placeholder">
-        <span id="goalPlaceholderMsg">강점·약점 분석이 완료되면 전문 역량이 자동으로 생성됩니다.</span>
+        <span id="goalPlaceholderMsg">강점·성장 방향 제안이 완료되면 전문 역량이 자동으로 생성됩니다.</span>
         <button id="btnGoalRetry" style="display:none;margin-top:10px;" class="btn btn-secondary btn-sm">재시도</button>
       </div>
       <div id="goalLoading" style="display:none;" class="sw-loading">
@@ -2280,7 +2400,7 @@
 
 <!-- ===== 프로필 편집 모달 ===== -->
 <div class="modal-backdrop" id="profileModal" role="dialog" aria-modal="true" aria-labelledby="profileModalTitle" style="display:none;">
-  <div class="modal" style="max-width:480px;">
+  <div class="modal">
     <div class="modal-header">
       <h2 class="modal-title" id="profileModalTitle">프로필 편집</h2>
       <button class="modal-close" id="btnCloseProfileModal" aria-label="모달 닫기">✕</button>
@@ -2329,22 +2449,22 @@
 
 <!-- 강사정보 모달 -->
 <div class="field-modal-overlay" id="instModalOverlay">
-  <div class="field-modal" style="width:500px">
+  <div class="field-modal">
     <div class="field-modal-header">
       <span class="field-modal-title" id="instModalTitle">강사정보 수정</span>
       <button class="field-modal-close" id="instModalClose" title="닫기">&#xd7;</button>
     </div>
-    <div class="field-modal-body" style="gap:14px">
+    <div class="field-modal-body">
       <div class="field-modal-field">
-        <div class="field-modal-name-label">강의분야 <span class="char-hint" id="imCntLectureField" style="font-weight:400;margin-left:4px">0/200</span></div>
+        <div class="field-modal-name-label">강의분야 <span class="char-hint" id="imCntLectureField" style="margin-left:4px">0/200</span></div>
         <textarea class="field-modal-ta" id="imLectureField" rows="3" maxlength="200" placeholder="강의 분야를 입력하세요"></textarea>
       </div>
       <div class="field-modal-field">
-        <div class="field-modal-name-label">전문역량 <span class="char-hint" id="imCntExpertise" style="font-weight:400;margin-left:4px">0/200</span></div>
+        <div class="field-modal-name-label">전문역량 <span class="char-hint" id="imCntExpertise" style="margin-left:4px">0/200</span></div>
         <textarea class="field-modal-ta" id="imExpertise" rows="3" maxlength="200" placeholder="전문역량을 입력하세요"></textarea>
       </div>
       <div class="field-modal-field">
-        <div class="field-modal-name-label">강사소개 <span class="char-hint" id="imCntBio" style="font-weight:400;margin-left:4px">0/200</span></div>
+        <div class="field-modal-name-label">강사소개 <span class="char-hint" id="imCntBio" style="margin-left:4px">0/200</span></div>
         <textarea class="field-modal-ta" id="imBio" rows="4" maxlength="200" placeholder="강사 소개를 입력하세요"></textarea>
       </div>
     </div>
@@ -2357,34 +2477,34 @@
 
 <!-- 강의이력 모달 -->
 <div class="field-modal-overlay" id="lecModalOverlay">
-  <div class="field-modal" style="width:480px">
+  <div class="field-modal">
     <div class="field-modal-header">
       <span class="field-modal-title" id="lecModalTitle">강의이력 추가</span>
       <button class="field-modal-close" id="lecModalClose" title="닫기">&#xd7;</button>
     </div>
-    <div class="field-modal-body" style="gap:12px">
+    <div class="field-modal-body">
       <div class="field-modal-field">
         <div class="field-modal-name-label">과정명 <span style="color:var(--color-danger)">*</span></div>
-        <input class="field-modal-input" id="lmCourseName" type="text" maxlength="100" placeholder="과정명을 입력하세요 (최대 100자)" style="font-size:14px;font-weight:500" />
+        <input class="field-modal-input" id="lmCourseName" type="text" maxlength="100" placeholder="과정명을 입력하세요 (최대 100자)" />
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
         <div class="field-modal-field">
           <div class="field-modal-name-label">학습시작일</div>
-          <input class="field-modal-input" id="lmStartDate" type="date" style="font-size:13px;font-weight:400" />
+          <input class="field-modal-input" id="lmStartDate" type="date" />
         </div>
         <div class="field-modal-field">
           <div class="field-modal-name-label">학습종료일</div>
-          <input class="field-modal-input" id="lmEndDate" type="date" style="font-size:13px;font-weight:400" />
+          <input class="field-modal-input" id="lmEndDate" type="date" />
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
         <div class="field-modal-field">
           <div class="field-modal-name-label">강의시간 (hh:mm)</div>
-          <input class="field-modal-input" id="lmDuration" type="text" placeholder="03:30" pattern="[0-9]{2}:[0-9]{2}" style="font-size:13px;font-weight:400" />
+          <input class="field-modal-input" id="lmDuration" type="text" placeholder="03:30" pattern="[0-9]{2}:[0-9]{2}" />
         </div>
         <div class="field-modal-field">
           <div class="field-modal-name-label">강사평가</div>
-          <select class="field-modal-input" id="lmRating" style="font-size:13px;font-weight:400;cursor:pointer">
+          <select class="field-modal-input" id="lmRating">
             <option value="0">0.0</option><option value="0.5">0.5</option>
             <option value="1">1.0</option><option value="1.5">1.5</option>
             <option value="2">2.0</option><option value="2.5">2.5</option>
@@ -2442,6 +2562,46 @@
     <div class="field-modal-footer">
       <button class="btn-sw-cancel-btn" id="fieldModalCancel">취소</button>
       <button class="btn-sw-save-btn" id="fieldModalSave">저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- 자격 정보 모달 -->
+<div class="field-modal-overlay" id="qualModalOverlay">
+  <div class="field-modal" role="dialog" aria-modal="true">
+    <div class="field-modal-header">
+      <span class="field-modal-title" id="qualModalTitle">자격 정보 추가</span>
+      <button class="field-modal-close" id="qualModalClose" title="닫기">&#xd7;</button>
+    </div>
+    <div class="field-modal-body">
+      <div class="field-modal-field">
+        <div class="field-modal-name-label">자격 구분 <span style="color:var(--color-danger)">*</span></div>
+        <select class="field-modal-input" id="qmCategory">
+          <option value="">선택하세요</option>
+          <option value="사내 자격">사내 자격</option>
+          <option value="사외 자격">사외 자격</option>
+        </select>
+      </div>
+      <div class="field-modal-field">
+        <div class="field-modal-name-label">명칭 <span style="color:var(--color-danger)">*</span></div>
+        <input class="field-modal-input" id="qmName" type="text" maxlength="500" placeholder="자격명을 입력하세요" />
+      </div>
+      <div class="field-modal-field">
+        <div class="field-modal-label">등급</div>
+        <input class="field-modal-input" id="qmGrade" type="text" maxlength="500" placeholder="등급을 입력하세요" />
+      </div>
+      <div class="field-modal-field">
+        <div class="field-modal-label">취득일</div>
+        <input class="field-modal-input" id="qmAcquiredDate" type="date" />
+      </div>
+      <div class="field-modal-field">
+        <div class="field-modal-label">유효일</div>
+        <input class="field-modal-input" id="qmExpiryDate" type="date" />
+      </div>
+    </div>
+    <div class="field-modal-footer">
+      <button class="btn-sw-cancel-btn" id="qualModalCancel">취소</button>
+      <button class="btn-sw-save-btn" id="qualModalSave">저장</button>
     </div>
   </div>
 </div>
@@ -2818,15 +2978,21 @@
     const projectsText = projects.map((p, i) =>
       `[${i+1}] ${p.project_name} | 역할: ${p.role || '-'} | 기여도: ${p.contribution || '-'} | 정량적성과: ${p.quantitative_outcomes || '-'} | 정성적성과: ${p.qualitative_outcomes || '-'}`
     ).join('\n');
+    const qualsText = _qualsList.length > 0
+      ? _qualsList.map(q => `- [${q.qual_category}] ${q.name}${q.grade ? ` (${q.grade})` : ''}${q.acquired_date ? ` 취득: ${q.acquired_date}` : ''}`).join('\n')
+      : '없음';
     const messages = [{
       role: 'user',
-      content: `아래 프로젝트 경험을 바탕으로 역량 진단을 위한 자기 평가 설문 문항 5개를 만들어주세요.
+      content: `아래 프로젝트 경험과 자격 정보를 바탕으로 역량 진단을 위한 자기 평가 설문 문항 5개를 만들어주세요.
 각 문항은 "나는 ~할 수 있다" 또는 "나는 ~을 잘 한다" 형식의 1인칭 자기 평가 문장으로 작성하세요.
 기술 역량, 협업 역량, 문제해결 역량, 리더십 역량, 성과 관리 역량을 각 1개씩 포함하세요.
 정답·오답 없이 역량 수준을 진단하는 문항이어야 합니다.
 
-프로젝트 정보:
+[프로젝트 정보]
 ${projectsText}
+
+[자격 정보]
+${qualsText}
 
 JSON만 출력하세요. 다른 설명 없이 아래 형식으로만 출력:
 {"questions":[{"question":"자기 평가 문항","category":"역량 분류"}]}
@@ -2849,13 +3015,19 @@ category는 기술역량·협업역량·문제해결역량·리더십역량·성
       const category = q.category ? `[${q.category}] ` : '';
       return `Q${i+1}. ${category}${q.question}\n  응답: ${optLabel} (${pts}점)`;
     }).join('\n') : '설문 정보 없음';
+    const qualsText = _qualsList.length > 0
+      ? _qualsList.map(q => `- [${q.qual_category}] ${q.name}${q.grade ? ` (${q.grade})` : ''}${q.acquired_date ? ` 취득: ${q.acquired_date}` : ''}`).join('\n')
+      : '없음';
 
     const messages = [{
       role: 'user',
-      content: `아래 프로젝트 경험과 역량 진단 설문 결과를 종합하여 강점과 약점을 분석해주세요.
+      content: `아래 프로젝트 경험, 자격 정보, 역량 진단 설문 결과를 종합하여 강점과 약점을 분석해주세요.
 
 [프로젝트 정보]
 ${projectsText}
+
+[자격 정보]
+${qualsText}
 
 [설문 결과]
 ${surveyText}
@@ -3725,7 +3897,7 @@ JSON만 출력하세요. 다른 설명 없이 아래 형식으로만 출력:
     document.getElementById('swPlaceholder').style.display = 'block';
     document.getElementById('goalContainer').style.display = 'none';
     document.getElementById('goalPlaceholder').style.display = 'flex';
-    document.getElementById('goalPlaceholderMsg').textContent = '강점·약점 분석이 완료되면 전문 역량이 자동으로 생성됩니다.';
+    document.getElementById('goalPlaceholderMsg').textContent = '강점·성장 방향 제안이 완료되면 전문 역량이 자동으로 생성됩니다.';
     document.getElementById('btnSurveyStart').click();
   });
 
@@ -3883,6 +4055,7 @@ JSON만 출력하세요. 다른 설명 없이 아래 형식으로만 출력:
   document.getElementById('btnSwAddWeakness').addEventListener('click', () => _addSwItem('swWeaknessesContainer', 'weakness'));
 
   let _lastSurveyData = null; // 마지막 설문 데이터 저장 (재시도용)
+  let _qualsList = []; // 자격 정보 캐시 (AI 분석 기초 데이터)
 
   async function runSwAnalysis(questions, answers) {
     _lastSurveyData = { questions, answers };
@@ -3892,7 +4065,7 @@ JSON만 출력하세요. 다른 설명 없이 아래 형식으로만 출력:
       document.getElementById('swPlaceholder').style.display = 'block';
       return;
     }
-    document.getElementById('swPlaceholderMsg').textContent = '설문을 완료하면 강점·약점 분석이 자동으로 실행됩니다.';
+    document.getElementById('swPlaceholderMsg').textContent = '설문을 완료하면 강점·성장 방향 제안이 자동으로 실행됩니다.';
     document.getElementById('btnSwRetry').style.display = 'none';
     document.getElementById('swPlaceholder').style.display = 'none';
     document.getElementById('swResult').style.display = 'none';
@@ -4130,7 +4303,7 @@ JSON만 출력하세요. 다른 설명 없이 아래 형식으로만 출력:
       document.getElementById('goalPlaceholder').style.display = 'block';
       return;
     }
-    document.getElementById('goalPlaceholderMsg').textContent = '강점·약점 분석이 완료되면 전문 역량이 자동으로 생성됩니다.';
+    document.getElementById('goalPlaceholderMsg').textContent = '강점·성장 방향 제안이 완료되면 전문 역량이 자동으로 생성됩니다.';
     document.getElementById('btnGoalRetry').style.display = 'none';
     document.getElementById('goalPlaceholder').style.display = 'none';
     document.getElementById('goalContainer').style.display = 'none';
@@ -4323,7 +4496,9 @@ JSON만 출력하세요. 다른 설명 없이 아래 형식으로만 출력:
 
     btnClose.addEventListener('click', _close);
     btnCancel.addEventListener('click', _close);
-    overlay.addEventListener('click', e => { if (e.target === overlay) _close(); });
+    let _mdTarget = null;
+    overlay.addEventListener('mousedown', e => { _mdTarget = e.target; });
+    overlay.addEventListener('click', e => { if (e.target === overlay && _mdTarget === overlay) _close(); });
 
     document.getElementById('btnInstEdit').addEventListener('click', _open);
 
@@ -4417,7 +4592,9 @@ JSON만 출력하세요. 다른 설명 없이 아래 형식으로만 출력:
 
     btnClose.addEventListener('click', _close);
     btnCancel.addEventListener('click', _close);
-    overlay.addEventListener('click', e => { if (e.target === overlay) _close(); });
+    let _mdTarget = null;
+    overlay.addEventListener('mousedown', e => { _mdTarget = e.target; });
+    overlay.addEventListener('click', e => { if (e.target === overlay && _mdTarget === overlay) _close(); });
 
     btnSave.addEventListener('click', async () => {
       const courseName = fName.value.trim();
@@ -4596,7 +4773,9 @@ JSON만 출력하세요. 다른 설명 없이 아래 형식으로만 출력:
 
     btnClose.addEventListener('click', _close);
     btnCancel.addEventListener('click', _close);
-    overlay.addEventListener('click', e => { if (e.target === overlay) _close(); });
+    let _mdTarget = null;
+    overlay.addEventListener('mousedown', e => { _mdTarget = e.target; });
+    overlay.addEventListener('click', e => { if (e.target === overlay && _mdTarget === overlay) _close(); });
 
     btnSave.addEventListener('click', async () => {
       const fieldName = fName.value.trim();
@@ -4703,6 +4882,190 @@ JSON만 출력하세요. 다른 설명 없이 아래 형식으로만 출력:
   });
 
   /* ===================================================
+   * 자격 정보
+   * =================================================== */
+  (function() {
+    const overlay = document.getElementById('qualModalOverlay');
+    const modalTitle = document.getElementById('qualModalTitle');
+    const btnClose = document.getElementById('qualModalClose');
+    const btnCancel = document.getElementById('qualModalCancel');
+    const btnSave = document.getElementById('qualModalSave');
+    const selCategory = document.getElementById('qmCategory');
+    const inpName = document.getElementById('qmName');
+    const inpGrade = document.getElementById('qmGrade');
+    const inpAcquired = document.getElementById('qmAcquiredDate');
+    const inpExpiry = document.getElementById('qmExpiryDate');
+    let _editingCard = null;
+
+    function _openQualModal(card) {
+      _editingCard = card || null;
+      modalTitle.textContent = card ? '자격 정보 수정' : '자격 정보 추가';
+      if (card) {
+        selCategory.value = card.dataset.category || '';
+        inpName.value = card.dataset.name || '';
+        inpGrade.value = card.dataset.grade || '';
+        inpAcquired.value = card.dataset.acquiredDate || '';
+        inpExpiry.value = card.dataset.expiryDate || '';
+      } else {
+        selCategory.value = '';
+        inpName.value = '';
+        inpGrade.value = '';
+        inpAcquired.value = '';
+        inpExpiry.value = '';
+      }
+      overlay.style.display = 'flex';
+      selCategory.focus();
+    }
+
+    function _closeQualModal() {
+      overlay.style.display = 'none';
+      _editingCard = null;
+    }
+
+    btnClose.addEventListener('click', _closeQualModal);
+    btnCancel.addEventListener('click', _closeQualModal);
+    let _mdTargetQ = null;
+    overlay.addEventListener('mousedown', e => { _mdTargetQ = e.target; });
+    overlay.addEventListener('click', e => { if (e.target === overlay && _mdTargetQ === overlay) _closeQualModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && overlay.style.display === 'flex') _closeQualModal(); });
+
+    btnSave.addEventListener('click', async () => {
+      const category = selCategory.value.trim();
+      const name = inpName.value.trim();
+      const grade = inpGrade.value.trim();
+      const acquiredDate = inpAcquired.value || null;
+      const expiryDate = inpExpiry.value || null;
+      if (!category) { selCategory.focus(); alert('자격 구분을 선택해주세요.'); return; }
+      if (!name) { inpName.focus(); alert('명칭을 입력해주세요.'); return; }
+      const profileId = appState.profile?.id;
+      if (!profileId) { showToast('프로필 정보가 없습니다.', 'error'); return; }
+      btnSave.disabled = true;
+      try {
+        const payload = {
+          profile_id: profileId,
+          qual_category: category,
+          name,
+          grade: grade || null,
+          acquired_date: acquiredDate,
+          expiry_date: expiryDate,
+          updated_at: new Date().toISOString(),
+        };
+        if (_editingCard) {
+          const id = _editingCard.dataset.id;
+          await db.update('expertise_qualifications', id, payload);
+          _editingCard.dataset.category = category;
+          _editingCard.dataset.name = name;
+          _editingCard.dataset.grade = grade;
+          _editingCard.dataset.acquiredDate = acquiredDate || '';
+          _editingCard.dataset.expiryDate = expiryDate || '';
+          const badgeEl = _editingCard.querySelector('.qual-badge');
+          badgeEl.textContent = category;
+          badgeEl.className = 'qual-badge ' + (category === '사내 자격' ? 'internal' : 'external');
+          _editingCard.querySelector('.qual-td-name').textContent = name;
+          _editingCard.querySelector('.qual-td-grade').textContent = grade || '';
+          _editingCard.querySelector('.qual-td-acq').textContent = acquiredDate || '';
+          _editingCard.querySelector('.qual-td-exp').textContent = expiryDate || '';
+          // _qualsList 갱신
+          const idx = _qualsList.findIndex(q => String(q.id) === id);
+          if (idx >= 0) _qualsList[idx] = { ..._qualsList[idx], ...payload, id };
+          showToast('수정되었습니다.', 'success');
+        } else {
+          const res = await db.insert('expertise_qualifications', payload);
+          const newId = Array.isArray(res) && res[0]?.id ? res[0].id : null;
+          const newRow = { id: newId, ...payload };
+          _qualsList.push(newRow);
+          _qualsList.sort((a, b) => (a.qual_category||'').localeCompare(b.qual_category||'','ko') || (a.name||'').localeCompare(b.name||'','ko'));
+          const card = _qualCardEl(newRow);
+          _insertQualCardSorted(card);
+          _updateQualsCount();
+          showToast('등록되었습니다.', 'success');
+        }
+        _closeQualModal();
+      } catch (e) {
+        showToast('저장 오류: ' + e.message, 'error');
+      } finally {
+        btnSave.disabled = false;
+      }
+    });
+
+    window._openQualModal = _openQualModal;
+  })();
+
+  function _qualCardEl(r) {
+    const tr = document.createElement('tr');
+    tr.dataset.id = r.id || '';
+    tr.dataset.category = r.qual_category || '';
+    tr.dataset.name = r.name || '';
+    tr.dataset.grade = r.grade || '';
+    tr.dataset.acquiredDate = r.acquired_date || '';
+    tr.dataset.expiryDate = r.expiry_date || '';
+    const badgeClass = r.qual_category === '사내 자격' ? 'internal' : 'external';
+    tr.innerHTML = `
+      <td><span class="qual-badge ${badgeClass}">${escapeHtml(r.qual_category||'')}</span></td>
+      <td class="qual-td-name">${escapeHtml(r.name||'')}</td>
+      <td class="qual-td-grade">${escapeHtml(r.grade||'')}</td>
+      <td class="qual-td-date qual-td-acq">${escapeHtml(r.acquired_date||'')}</td>
+      <td class="qual-td-date qual-td-exp">${escapeHtml(r.expiry_date||'')}</td>
+      <td class="qual-td-actions">
+        <button class="btn-qual-action btn-qual-edit" title="수정">✏️</button>
+        <button class="btn-qual-action btn-qual-del" title="삭제">🗑</button>
+      </td>`;
+    tr.querySelector('.btn-qual-edit').addEventListener('click', () => window._openQualModal(tr));
+    tr.querySelector('.btn-qual-del').addEventListener('click', async () => {
+      if (!confirm('이 자격 정보를 삭제하시겠습니까?')) return;
+      const id = tr.dataset.id;
+      if (id) {
+        try { await db.remove('expertise_qualifications', id); }
+        catch (e) { showToast('삭제 오류: ' + e.message, 'error'); return; }
+      }
+      _qualsList = _qualsList.filter(q => String(q.id) !== id);
+      tr.remove();
+      _updateQualsCount();
+    });
+    return tr;
+  }
+
+  function _insertQualCardSorted(row) {
+    const tbody = document.getElementById('qualTbody');
+    const newCat = row.dataset.category;
+    const newName = row.dataset.name;
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    let inserted = false;
+    for (const existing of rows) {
+      const cmp = newCat.localeCompare(existing.dataset.category, 'ko') || newName.localeCompare(existing.dataset.name, 'ko');
+      if (cmp < 0) { tbody.insertBefore(row, existing); inserted = true; break; }
+    }
+    if (!inserted) tbody.appendChild(row);
+  }
+
+  function _updateQualsCount() {
+    const count = document.getElementById('qualTbody').querySelectorAll('tr').length;
+    document.getElementById('qualsCountBadge').textContent = `${count}건`;
+  }
+
+  async function loadQualifications() {
+    const profileId = appState.profile?.id;
+    if (!profileId) return;
+    const overlay = document.getElementById('qualsLoadingOverlay');
+    const tbody = document.getElementById('qualTbody');
+    if (overlay) overlay.style.display = 'flex';
+    try {
+      const rows = await db.select('expertise_qualifications',
+        `profile_id=eq.${profileId}&order=qual_category.asc,name.asc`);
+      _qualsList = Array.isArray(rows) ? rows : [];
+      tbody.innerHTML = '';
+      _qualsList.forEach(r => tbody.appendChild(_qualCardEl(r)));
+      _updateQualsCount();
+    } catch (e) {
+      console.warn('[자격 정보 로드 실패]', e);
+    } finally {
+      if (overlay) overlay.style.display = 'none';
+    }
+  }
+
+  document.getElementById('btnQualAdd').addEventListener('click', () => window._openQualModal(null));
+
+  /* ===================================================
    * 앱 초기화
    * =================================================== */
   async function initApp() {
@@ -4711,7 +5074,7 @@ JSON만 출력하세요. 다른 설명 없이 아래 형식으로만 출력:
       await loadProfile();
       await Promise.all([
         loadProjects(), loadSavedSurvey(), loadSavedSwAnalysis(), loadSavedGoals(),
-        loadInstructorInfo(), loadLectures(), loadFields(),
+        loadInstructorInfo(), loadLectures(), loadFields(), loadQualifications(),
       ]);
     } catch (err) {
       console.error('[앱 초기화 오류]', err);
